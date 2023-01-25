@@ -24,12 +24,6 @@ const Values = ({ show, x, counter }) => {
           setUpdatePik({ ...pik, ...e.target.position() });
         }}
       />
-      {/*<Rect*/}
-      {/*    {...initialRedNode}*/}
-      {/*    onDragMove={(e) => {*/}
-      {/*        setUpdateRedNode({ ...redNode, ...e.target.position() });*/}
-      {/*    }}*/}
-      {/*/>*/}
     </Group>
   );
 };

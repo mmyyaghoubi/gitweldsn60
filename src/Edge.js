@@ -1,17 +1,17 @@
 import { Arrow, Group, Text, Circle } from "react-konva";
 import React from "react";
 
-const Edge = ({ show, counter, redNode, pik }) => {
+const Edge = ({ show, counter, pik }) => {
   const arrowStart = {
     x: pik.x + 50,
     y: pik.y + 40,
   };
   const arrowEnd = {
-    x: redNode.x + redNode.width / 2,
-    y: redNode.y,
+    x: pik.x + 50,
+    y: pik.y + 200,
   };
   const arrowMiddle = {
-    x: arrowEnd.x + 20,
+    x: arrowEnd.x + 30,
     y: arrowEnd.y - 10,
   };
 
