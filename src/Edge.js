@@ -1,17 +1,26 @@
 import { Arrow, Group, Text, Circle } from "react-konva";
 import React from "react";
+const initialTextNode = {
+  x: 100,
+  y: 200,
+  strokeWidth: 2,
+  width: 40,
+  height: 20,
+};
 
 const Edge = ({ show, counter, pik }) => {
+  const [textNode, setTextNode] = React.useState(initialTextNode);
   const arrowStart = {
     x: pik.x + 50,
     y: pik.y + 40,
   };
   const arrowEnd = {
-    x: pik.x + 50,
-    y: pik.y + 200,
+    x: textNode.x + textNode.width / 2,
+    y: textNode.y,
   };
+
   const arrowMiddle = {
-    x: arrowEnd.x + 30,
+    x: arrowEnd.x + 20,
     y: arrowEnd.y - 10,
   };
 
@@ -36,12 +45,16 @@ const Edge = ({ show, counter, pik }) => {
       <Text
         visible={show}
         fill="black"
-        x={arrowEnd.x - 5}
-        y={arrowEnd.y}
+        x={textNode.x}
+        y={textNode.y}
         fontSize={20}
         align="center"
         verticalAlign="middle"
         text={counter}
+        draggable={true}
+        onDragMove={(e) => {
+          setTextNode({ ...textNode, ...e.target.position() });
+        }}
       />
     </Group>
   );
