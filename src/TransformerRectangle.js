@@ -34,6 +34,7 @@ function TransformerRectangle({
         stroke={pik.stroke}
         closed
         x={pik.x}
+        fill={"red"}
         draggable
         onDragMove={(e) => {
           setUpdatePik({
@@ -42,14 +43,6 @@ function TransformerRectangle({
           });
           console.log("x :" + Math.floor(e.target.x()));
         }}
-        // onDragEnd={(e) => {
-        //   onChange({
-        //     ...pik,
-        //     x: Math.floor(e.target.x()),
-        //     y: Math.floor(e.target.y()),
-        //   });
-        //   console.log("x :" + e.target.x());
-        // }}
         onTransformEnd={() => {
           // transformer is changing scale of the node
           // and NOT its width or height
@@ -59,14 +52,13 @@ function TransformerRectangle({
           const scaleX = node.scaleX();
           const scaleY = node.scaleY();
           const rotation = node.rotation();
-          console.log("scaleX", scaleX.toFixed(2), scaleY.toFixed(2));
+          console.log("scaleX,scaleY :", scaleX.toFixed(2), scaleY.toFixed(2));
           console.log("node.width():", node.width());
           console.log("scaleY", scaleY.toFixed(2));
           console.log("rotation", rotation.toFixed(2));
           // we will reset it back
           node.scaleX(1);
           node.scaleY(1);
-          console.log("scaleX after reset", node.scaleX());
 
           onChange({
             ...shapeProps,
@@ -83,7 +75,6 @@ function TransformerRectangle({
             // width: Math.max(50, node.width() * scaleX),
             // height: Math.max(50,node.height() * scaleY),
           });
-          console.log("x t :" + Math.floor(node.x()));
         }}
       />
       {isSelected && (
