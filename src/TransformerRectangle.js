@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { Line, Transformer } from "react-konva";
 
-function Rectangle({
+function TransformerRectangle({
   shapeProps,
   isSelected,
   onSelect,
@@ -9,9 +9,6 @@ function Rectangle({
   pik,
   setUpdatePik,
 }) {
-  const handelDragMove = (e) => {
-    setUpdatePik({ ...pik, ...e.target.position() });
-  };
   const shapeRef = useRef();
   const trRef = useRef();
 
@@ -38,14 +35,21 @@ function Rectangle({
         closed
         x={pik.x}
         draggable
-        onDragMove={handelDragMove}
-        onDragEnd={(e) => {
-          onChange({
-            ...shapeProps,
-            x: Math.floor(e.target.x()),
-            y: Math.floor(e.target.y()),
+        onDragMove={(e) => {
+          setUpdatePik({
+            ...pik,
+            ...e.target.position(),
           });
+          console.log("x :" + Math.floor(e.target.x()));
         }}
+        // onDragEnd={(e) => {
+        //   onChange({
+        //     ...pik,
+        //     x: Math.floor(e.target.x()),
+        //     y: Math.floor(e.target.y()),
+        //   });
+        //   console.log("x :" + e.target.x());
+        // }}
         onTransformEnd={() => {
           // transformer is changing scale of the node
           // and NOT its width or height
@@ -68,7 +72,6 @@ function Rectangle({
             ...shapeProps,
             x: Math.floor(node.x()),
             y: Math.floor(node.y()),
-
             // set minimal value
             points: node
               .points()
@@ -80,6 +83,7 @@ function Rectangle({
             // width: Math.max(50, node.width() * scaleX),
             // height: Math.max(50,node.height() * scaleY),
           });
+          console.log("x t :" + Math.floor(node.x()));
         }}
       />
       {isSelected && (
@@ -106,4 +110,4 @@ function Rectangle({
     </React.Fragment>
   );
 }
-export default Rectangle;
+export default TransformerRectangle;

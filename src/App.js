@@ -1,14 +1,15 @@
 import { Stage, Layer } from "react-konva";
 import React, { useState } from "react";
-import Values from "./Values";
+import PikWithTag from "./PikWithTag";
 
 const App = () => {
   const [show, setShow] = useState(true);
-  const [counter, setCounter] = useState(0);
+  const [counterTag, setCounterTag] = useState(0);
+  // blob is x and id of our created pik
   const [blobs, setBlobs] = useState([]);
-
+  const [selectShape, setSelectShape] = useState(null);
   const handelCreate = () => {
-    setCounter(counter + 1);
+    setCounterTag(counterTag + 1);
     setBlobs((prevBlobs) => [
       ...prevBlobs,
       {
@@ -16,8 +17,6 @@ const App = () => {
         x: blobs.length * 100,
       },
     ]);
-    // console.log("x : " + blobs.length * 100);
-    // console.log("blobs.length : " + blobs.length);
   };
   const previous = blobs.slice(0, blobs.length - 1);
   const handelUndo = () => {
@@ -30,7 +29,6 @@ const App = () => {
   const handelShow = () => {
     setShow((prevState) => !prevState);
   };
-  const [selectShape, setSelectShape] = useState(null);
   const checkDeselect = (e) => {
     // deselect when clicked on empty area
     const clickedOnEmpty = e.target === e.target.getStage();
@@ -52,8 +50,7 @@ const App = () => {
       >
         <Layer>
           {blobs.map((blob, g) => (
-            //counter----->i+1
-            <Values
+            <PikWithTag
               id={blob.id}
               shapeProps={blob}
               isSelected={blob.id === selectShape}
@@ -70,7 +67,7 @@ const App = () => {
               show={show}
               key={g}
               x={blob.x}
-              counter={g + 1}
+              counterTag={g + 1}
             />
           ))}
         </Layer>
