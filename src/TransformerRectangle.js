@@ -49,8 +49,8 @@ function TransformerRectangle({
           // but in the store we have only width and height
           // to match the data better we will reset scale on transform end
           const node = shapeRef.current;
-          const scaleX = node.scaleX();
-          const scaleY = node.scaleY();
+          const scaleX = node.scaleX.valueOf();
+          const scaleY = node.scaleY.valueOf();
           const rotation = node.rotation();
           console.log("scaleX,scaleY :", scaleX.toFixed(2), scaleY.toFixed(2));
           console.log("node.width():", node.width());
