@@ -12,11 +12,12 @@ const App = () => {
     setBlobs((prevBlobs) => [
       ...prevBlobs,
       {
+        id: blobs.toString(),
         x: blobs.length * 100,
       },
     ]);
     // console.log("x : " + blobs.length * 100);
-    console.log("blobs.length : " + blobs.length);
+    // console.log("blobs.length : " + blobs.length);
   };
   const previous = blobs.slice(0, blobs.length - 1);
   const handelUndo = () => {
@@ -29,17 +30,48 @@ const App = () => {
   const handelShow = () => {
     setShow((prevState) => !prevState);
   };
+  const [selectShape, setSelectShape] = useState(null);
+  const checkDeselect = (e) => {
+    // deselect when clicked on empty area
+    const clickedOnEmpty = e.target === e.target.getStage();
+    if (clickedOnEmpty) {
+      setSelectShape(null);
+    }
+  };
 
   return (
     <>
       <button onClick={handelCreate}>Create</button>
       <button onClick={handelUndo}>undo</button>
       <button onClick={handelShow}>on/off</button>
-      <Stage width={window.innerWidth} height={window.innerHeight}>
+      <Stage
+        onMouseDown={checkDeselect}
+        onTouchStart={checkDeselect}
+        width={window.innerWidth}
+        height={window.innerHeight}
+      >
         <Layer>
-          {blobs.map((blob, i) => (
+          {blobs.map((blob, g) => (
             //counter----->i+1
-            <Values show={show} key={i} x={blob.x} counter={i + 1} />
+            <Values
+              id={blob.id}
+              shapeProps={blob}
+              isSelected={blob.id === selectShape}
+              onSelect={() => {
+                setSelectShape(blob.id);
+                console.log("Selected shape" + blob.id);
+              }}
+              onChange={(newAttrs) => {
+                const copyOfSheklha = blobs.slice();
+                copyOfSheklha[g] = newAttrs;
+                // console.log(newAttrs);
+                setBlobs(copyOfSheklha);
+              }}
+              show={show}
+              key={g}
+              x={blob.x}
+              counter={g + 1}
+            />
           ))}
         </Layer>
       </Stage>
