@@ -83,6 +83,7 @@ const PikWithTag = ({
         />
       </Group>
       <TransformerRectangle
+
         id={id}
         shapeProps={shapeProps}
         isSelected={isSelected}
